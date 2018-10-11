@@ -19,20 +19,10 @@ app.use(bodyParser.json())
 
 app.use(require('./routes/usuario'));
 
-
-
-
-
-
 mongoose.connect(process.env.URLDB, (err, res) => {
-
     if (err) throw err;
-    console.log('Base de Datos ONLINE');
-
+    console.log('BASE DE DATOS ONLINE');
 });
-
-
-
 
 //levantando el servidor
 app.listen(process.env.PORT, () => {

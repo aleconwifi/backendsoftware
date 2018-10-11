@@ -16,7 +16,7 @@ let urlDB;
 //    urlDB = 'mongodb://localhost:27017/metroticket';
 
 //} else {
-urlDB = 'mongodb://ale:123abc@ds157971.mlab.com:57971/metroticket';
+urlDB = 'mongodb+srv://Eventro:eventro.123@unimet-sskkh.mongodb.net/test?retryWrites=true';
 //}
 
 process.env.URLDB = urlDB;
