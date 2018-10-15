@@ -16,23 +16,13 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-
 app.use(require('./routes/usuario'));
-
-
-
-
-
+app.use(require('./routes/evento'));
 
 mongoose.connect(process.env.URLDB, (err, res) => {
-
     if (err) throw err;
     console.log('Base de Datos ONLINE');
-
 });
-
-
-
 
 //levantando el servidor
 app.listen(process.env.PORT, () => {
