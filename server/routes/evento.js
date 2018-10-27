@@ -1,10 +1,10 @@
 const express = require('express');
 //const _ = require('underscore');
-const Evento = require('../modelos/Evento');
+const Evento = require('../models/Evento');
 const app = express();
 
 
-app.get('/evento', function(req, res) {    
+app.get('/evento', function(req, res) {
     let skip = req.query.skip || 0;
     skip = Number(skip);
 
@@ -12,21 +12,21 @@ app.get('/evento', function(req, res) {
     limit = Number(limit);
 
     Evento.find({})
-    .skip(skip)
-    .limit(limit)
-    .exec((err, eventos) => {
+        .skip(skip)
+        .limit(limit)
+        .exec((err, eventos) => {
             if (err) {
                 return res.status(400).json({
                     ok: false,
                     error: err
                 });
-            }            
+            }
 
-            Evento.count({}, (err, conteo) => {  
+            Evento.count({}, (err, conteo) => {
                 res.json({
                     ok: true,
                     number: conteo,
-                    eventos: eventos                    
+                    eventos: eventos
                 });
             });
         });

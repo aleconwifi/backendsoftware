@@ -4,7 +4,7 @@ const express = require('express');
 const _ = require('underscore');
 
 
-const Usuario = require('../modelos/Usuario');
+const Usuario = require('../models/Usuario');
 
 const app = express();
 
