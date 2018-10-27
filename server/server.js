@@ -10,19 +10,19 @@ const bodyParser = require('body-parser');
 
 //estos son middlewares, app.use, son funciones
 //que siempre se disparan cuando pasan por estas lineas
-//app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
+app.use(bodyParser.urlencoded({ extended: false }))
+    // parse application/json
 app.use(bodyParser.json())
 
 app.use(require('./routes/usuario'));
 app.use(require('./routes/evento'));
 
 
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }))
+//app.use(express.json({ limit: '50mb' }));
+//app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.use(cookieParser());
 
-app.use(cookieParser());
+
 //app.use(logger('dev'));
 
 mongoose.connect('mongodb://ale:abc123@ds157971.mlab.com:57971/metroticket', (err, res) => {
@@ -32,9 +32,9 @@ mongoose.connect('mongodb://ale:abc123@ds157971.mlab.com:57971/metroticket', (er
 
 const auth = require('./routes/authRoutes');
 
-app.use('api/eventro', auth);
+app.use('api', auth);
 
 //levantando el servidor
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
     console.log('Escuchando puerto: ', 3000);
 });
