@@ -4,10 +4,10 @@ const User = require('../models/user.Models');
 const Helpers = require('../Helpers/helpers');
 const bcrypt = require('bcryptjs');
 
-
 module.exports = {
     async CreateUser(req, res) {
         const schema = Joi.object().keys({
+            //restricciones de contrasena y carnet
             username: Joi.string()
                 .min(5)
                 .max(10)
@@ -27,14 +27,14 @@ module.exports = {
                 .json({ message: error.details });
         }
 
-
+        //busca si ya existe el correo
         const userEmail = await User.findOne({ email: Helpers.lowerCase(req.body.email) });
         if (userEmail) {
             return res
                 .status(HttpStatus.CONFLICT)
                 .json({ message: 'Email ya exsite' });
         }
-
+        //busca si el carnet ya existe
         const userName = await User.findOne({ username: Helpers.firstUpper(req.body.username) });
         if (userName) {
             return res
@@ -42,15 +42,15 @@ module.exports = {
                 .json({ message: 'El nombre ya exsite' });
         }
 
-
-        return bcrypt.hash(value.password, 10, (error, hash) => {
+        //hashing funcional
+        return bcrypt.hash(value.password, 10, (err, hash) => {
             if (err) {
                 return res
                     .status(HttpStatus.BAD_REQUEST)
                     .json({ message: 'Error del hashing en la contrasena' });
             }
             const body = {
-                username: Helpers.firstUpper(vaule.username),
+                username: Helpers.firstUpper(value.username),
                 email: Helpers.lowerCase(value.email),
                 password: hash
             };

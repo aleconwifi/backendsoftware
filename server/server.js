@@ -18,7 +18,7 @@ app.use(require('./routes/usuario'));
 app.use(require('./routes/evento'));
 
 
-//app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: '50mb' }));
 //app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.use(cookieParser());
 
@@ -32,7 +32,7 @@ mongoose.connect('mongodb://ale:abc123@ds157971.mlab.com:57971/metroticket', (er
 
 const auth = require('./routes/authRoutes');
 
-app.use('api', auth);
+app.use('/api/eventro', auth);
 
 //levantando el servidor
 app.listen(3000, () => {
