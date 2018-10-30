@@ -14,8 +14,8 @@ let eventoSchema = new Schema({
     },
 
     fecha: {
-        type: Date,
-        required: [true, 'La fecha es necesaria']
+        type: String,
+        required: [false, 'La fecha es necesaria']
     },
 
     ubicacion: {

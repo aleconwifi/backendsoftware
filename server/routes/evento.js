@@ -32,6 +32,7 @@ app.get('/evento', function(req, res) {
         });
 });
 
+
 app.post('/evento', function(req, res) {
 
     let body = req.body;
@@ -45,18 +46,32 @@ app.post('/evento', function(req, res) {
         imagen: body.imagen
     });
 
-    Evento.save((err, evento) => {
+    evento.save((err, eventoDB) => {
+
         if (err) {
             return res.status(400).json({
                 ok: false,
-                error: err
-            });
+                err
+
+            }); //bad request es 400
         }
+
+        //usuarioDB.password = null;
+
         res.json({
             ok: true,
-            evento: evento
+            evento: eventoDB
+
         });
+
+
+
     });
+
+
+
+
+
 });
 
 app.put('/Evento/:id', function(req, res) {
