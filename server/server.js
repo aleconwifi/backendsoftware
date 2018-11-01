@@ -123,6 +123,79 @@ app.delete('/api/reviews/:review_id', function(req, res) {
 });
 
 
+// Model Evento
+var Event = mongoose.model('Event', {
+    nombre: String,
+    descripcion: String,
+    fecha: String,
+    organizador: String,
+    ubicacion: String,
+    tipo: String
+});
+
+
+// Routes
+
+// Get eventos
+app.get('/api/eventos', function(req, res) {
+
+    console.log("obteniendo eventos");
+
+    // use mongoose to get all reviews in the database
+    Event.find(function(err, eventos) {
+
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err)
+            res.send(err)
+
+        res.json(eventos); // return all reviews in JSON format
+    });
+});
+
+// create evento and send back all reviews after creation
+app.post('/api/eventos', function(req, res) {
+
+    console.log("creando evento");
+
+    // create a evneto, information comes from request from Ionic
+    Event.create({
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        fecha: req.body.fecha,
+        organizador: req.body.organizador,
+        ubicacion: req.body.ubicacion,
+        tipo: req.body.tipo,
+        done: false
+    }, function(err, evento) {
+        if (err)
+            res.send(err);
+
+        // get and return all the eventos after you create another
+        Event.find(function(err, eventos) {
+            if (err)
+                res.send(err)
+            res.json(eventos);
+        });
+    });
+
+});
+
+// delete a evento
+app.delete('/api/eventos/:evento_id', function(req, res) {
+    Event.remove({
+        _id: req.params.evento_id
+    }, function(err, evento) {
+
+    });
+});
+
+
+
+
+
+
+
+
 //const auth = require('./routes/authRoutes');
 //app.use('/api/eventro', auth);
 
